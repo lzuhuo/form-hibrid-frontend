@@ -1,9 +1,25 @@
-// import Head from 'next/head'
-
 import { Heading, Grid, Flex, Link, Button, Text, Stack } from '@chakra-ui/core'
-import { Divider, Input, Select} from '../components'
+import { useToast } from "@chakra-ui/core";
+import { Divider, Input} from '../components'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Home() {
+
+  const Post = () => {
+    const router = useRouter()
+    const { pid } = router.query
+    const toast = useToast();
+    toast({
+      title: "Account created.",
+      description: "We've created your account for you.",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    })
+    return pid
+  }
+
   return (
     <Grid
       as="main"
@@ -22,7 +38,7 @@ export default function Home() {
         <img width="75%" src="/aslan-logo.svg" alt="Rocketseat" />
 
         <Heading size="2xl" lineHeight="shorter" marginTop={16}>
-          Ticket de Ocorrências
+          Protocolo: {Post()}
         </Heading>
       </Flex>
 
@@ -44,38 +60,16 @@ export default function Home() {
         </Flex>
         
         <Flex>
-          <Select name="Unidade" width={250}>
-            <option value="1">Tamandaré</option>
-            <option value="2">Cidade Nova - PA</option>
-            <option value="3">Gentil</option>
-            <option value="4">Mauriti</option>
-            <option value="6">Augusto Montenegro</option>
-            <option value="7">Aleixo</option>
-            <option value="8">Cidade Nova - AM</option>
-            <option value="9">Umarizal</option>
-            <option value="10">BR Ananindeua</option>
-            <option value="11">Grande Circular</option>
-            <option value="12">Djalma Batista</option>
-            
-          </Select>
+          <Input name="Unidade"/>
           <Input name="Sala de Aula"/>
-          <Select name="Equipamento Empresa?" width={250}>
-            <option value="S">Sim</option>
-            <option value="N">Não</option>
-          </Select>
+          <Input name="Equipamento Empresa?"/>
           <Input name="Nome do Equipamento"/>
         </Flex>
         
 
-        <Flex flexDir="row" alignItems="flex-start">
-          <Select name="Tipo de Conexão" width={250}>
-            <option value="C">Cabeada</option>
-            <option value="W">WI-FI</option>
-          </Select>
-          <Select name="Microfone Funcionando?" width={250}>
-            <option value="S">Sim</option>
-            <option value="N">Não</option>
-          </Select>
+        <Flex>
+          <Input name="Tipo de Conexão"/>
+          <Input name="Microfone Funcionando?"/>
           
         </Flex>
 
