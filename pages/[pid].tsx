@@ -6,7 +6,7 @@ import { getTicket } from '../services/ticket';
 import { pid } from '../services/pid';
 
 export default function Home() {
-  const [num, setNum] = useState('0');
+  const [num, setNum] = useState<string | string[]>('0');
 
   const toast = useToast()
   let protocolo = pid()

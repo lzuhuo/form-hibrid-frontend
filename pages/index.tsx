@@ -1,9 +1,52 @@
-// import Head from 'next/head'
-
 import { Heading, Grid, Flex, Link, Button, Text, Stack } from '@chakra-ui/core'
-import { Divider, Input, Select} from '../components'
+import { useState } from 'react';
+import InputMask from "react-input-mask";
+import { Divider, Input, Select, InputDate} from '../components'
+import {dateFormat, contatoFormat} from '../utils/converter';
 
 export default function Home() { 
+  const [state, setState] = useState({
+    nm_usuario: "",
+    nr_contato: "",
+    dt_ocorrencia: "",
+    hr_ocorrencia:"",
+    cd_unidade:"",
+    nr_sala:"",
+    st_equipamento_empresa_usu:"",
+    nm_equipamento:"",
+    st_rede_adm_usu:"",
+    st_microfone_usu:""
+  })
+
+  function handleChange(evt) {
+    const value = evt.target.value.toUpperCase();
+    setState({
+      ...state,
+      [evt.target.id]: value
+    });
+  }
+
+  function handleDateChange(evt) {
+    const value = dateFormat(evt.target.value);
+    setState({
+      ...state,
+      [evt.target.id]: value
+    });
+  }
+
+  function habdleContactChange(evt){
+    const value = contatoFormat(evt.target.value);
+    setState({
+      ...state,
+      [evt.target.id]: value
+    });
+  }
+
+  
+
+  
+
+
   return (
     <Grid
       as="main"
@@ -37,9 +80,24 @@ export default function Home() {
       >
 
         <Flex>
-          <Input name="Nome"/>
-          <Input name="Contato com DDD"/>
-          <Input name="Data da Ocorrencia"/>
+          <Input 
+            name="Nome"
+            id="nr_contato"
+            value={state.nr_contato}
+            onChange={handleChange} 
+          />
+          <Input 
+            name="Contato com DDD"
+            id="nm_usuario"
+            value={state.nm_usuario}
+            onChange={habdleContactChange} 
+          />
+          <InputDate 
+            name="Data da Ocorrencia"
+            id="dt_ocorrencia"
+            value={state.dt_ocorrencia}
+            onChange={handleDateChange} 
+          />
           <Input name="Horário"/>
         </Flex>
         

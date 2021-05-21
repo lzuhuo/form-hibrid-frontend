@@ -19,7 +19,8 @@ const Input: React.FC<ChakraInputProps> = ({name, ...props}) => {
           borderRadius="sm"
           maxWidth="220px"
           name={name}
-          placeholder={name}
+          type="text"
+          placeholder="dd/mm/aaaa"
           {...props}
         />
     </Stack>
