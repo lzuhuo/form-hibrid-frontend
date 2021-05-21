@@ -18,6 +18,7 @@ const Input: React.FC<ChakraInputProps> = ({name, ...props}) => {
           focusBorderColor="purple.500"
           borderRadius="sm"
           maxWidth="220px"
+          isRequired
           name={name}
           placeholder={name}
           {...props}

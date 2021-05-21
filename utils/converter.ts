@@ -42,10 +42,35 @@ export function contatoFormat(valor){
         }
     }
 
-    
+    return valor;    
+}
 
+export function clockFormat(valor){
+    const dv = valor.replace(/\D/g, "");
+    valor = dv;
+    console.log(dv.length)
     
+    if(dv.length < 2 && parseInt(dv) > 2){
+        valor = `0${dv.substring(0,1)}`;
+    }else{
+        if(dv.length < 3 && parseInt(dv) > 23){
+            valor = ``;
+        }else{
+            if(dv.length < 3){
+                valor = `${dv.substring(0,2)}`;
+            }    
+            else{
+                if(parseInt(dv.substring(2,3)) > 5){
+                    valor = `${dv.substring(0,2)}`;
+                }else{
+                    if(dv.length < 5 || dv.length >=5 ){
+                        valor = `${dv.substring(0,2)}:${dv.substring(2,4)}`;
+                    }
+                }
+                
+            }
+        }
+    }
     
-    return valor;
-    
+    return valor
 }

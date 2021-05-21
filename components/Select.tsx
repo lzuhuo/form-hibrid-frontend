@@ -17,6 +17,7 @@ const Select: React.FC<ChakraSelectProps> = ({name, ...props}) => {
           focusBorderColor="purple.500"
           borderRadius="sm"
           maxWidth="220px"
+          isRequired
           placeholder={name}
           {...props}
         />

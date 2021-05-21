@@ -2,7 +2,7 @@ import { Heading, Grid, Flex, Link, Button, Text, Stack } from '@chakra-ui/core'
 import { useState } from 'react';
 import InputMask from "react-input-mask";
 import { Divider, Input, Select, InputDate} from '../components'
-import {dateFormat, contatoFormat} from '../utils/converter';
+import {dateFormat, contatoFormat, clockFormat} from '../utils/converter';
 
 export default function Home() { 
   const [state, setState] = useState({
@@ -34,7 +34,7 @@ export default function Home() {
     });
   }
 
-  function habdleContactChange(evt){
+  function handleContactChange(evt){
     const value = contatoFormat(evt.target.value);
     setState({
       ...state,
@@ -42,6 +42,33 @@ export default function Home() {
     });
   }
 
+  function handleClockChange(evt){
+    const value = clockFormat(evt.target.value);
+    setState({
+      ...state,
+      [evt.target.id]: value
+    });
+  }
+
+  function handleButtonClick(){
+    let formValid = true;
+    let valores = Object.values(state)
+    valores.forEach(valor => {
+      if(valor == ""){
+        formValid = false;
+        return;
+      }
+    });
+
+    if (formValid) {
+      console.log(Object.values(state));
+    }else{
+      console.log("Campos vazios")
+    }
+    
+
+
+  }
   
 
   
@@ -90,7 +117,7 @@ export default function Home() {
             name="Contato com DDD"
             id="nm_usuario"
             value={state.nm_usuario}
-            onChange={habdleContactChange} 
+            onChange={handleContactChange} 
           />
           <InputDate 
             name="Data da Ocorrencia"
@@ -98,11 +125,22 @@ export default function Home() {
             value={state.dt_ocorrencia}
             onChange={handleDateChange} 
           />
-          <Input name="Horário"/>
+          <Input 
+            name="Horário"
+            id="hr_ocorrencia"
+            value={state.hr_ocorrencia}
+            onChange={handleClockChange} 
+          />
         </Flex>
         
         <Flex>
-          <Select name="Unidade" width={250}>
+          <Select 
+            name="Unidade" 
+            width={250}
+            id="cd_unidade"
+            value={state.cd_unidade}
+            onChange={handleChange} 
+          >
             <option value="1">Tamandaré</option>
             <option value="2">Cidade Nova - PA</option>
             <option value="3">Gentil</option>
@@ -116,21 +154,50 @@ export default function Home() {
             <option value="12">Djalma Batista</option>
             
           </Select>
-          <Input name="Sala de Aula"/>
-          <Select name="Equipamento Empresa?" width={250}>
+          <Input 
+            name="Sala de Aula"
+            type="number"
+            id="nr_sala"
+            value={state.nr_sala}
+            onChange={handleChange} 
+          />
+          <Select 
+            name="Equipamento Empresa?" 
+            width={250}
+            id="st_equipamento_empresa_usu"
+            value={state.st_equipamento_empresa_usu}
+            onChange={handleChange}
+          >
             <option value="S">Sim</option>
             <option value="N">Não</option>
           </Select>
-          <Input name="Nome do Equipamento"/>
+          <Input 
+            name="Nome do Equipamento"
+            id="nm_equipamento"
+            value={state.nm_equipamento}
+            onChange={handleChange}
+          />
         </Flex>
         
 
         <Flex flexDir="row" alignItems="flex-start">
-          <Select name="Tipo de Conexão" width={250}>
+          <Select 
+            name="Tipo de Conexão" 
+            width={250}
+            id="st_rede_adm_usu"
+            value={state.st_rede_adm_usu}
+            onChange={handleChange}
+          >
             <option value="C">Cabeada</option>
             <option value="W">WI-FI</option>
           </Select>
-          <Select name="Microfone Funcionando?" width={250}>
+          <Select 
+            name="Mic Funcionando?" 
+            width={250}
+            id="st_microfone_usu"
+            value={state.st_microfone_usu}
+            onChange={handleChange}
+          >
             <option value="S">Sim</option>
             <option value="N">Não</option>
           </Select>
@@ -146,6 +213,7 @@ export default function Home() {
             backgroundColor="gray.600"
             maxWidth="240px"
             borderRadius="sm"
+            onClick={handleButtonClick}
             _hover={{ backgroundColor: 'purple.500' }}
           >
             SALVAR
