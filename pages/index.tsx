@@ -3,7 +3,7 @@
 import { Heading, Grid, Flex, Link, Button, Text, Stack } from '@chakra-ui/core'
 import { Divider, Input, Select} from '../components'
 
-export default function Home() {
+export default function Home() { 
   return (
     <Grid
       as="main"

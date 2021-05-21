@@ -1,24 +1,41 @@
 import { Heading, Grid, Flex, Link, Button, Text, Stack } from '@chakra-ui/core'
 import { useToast } from "@chakra-ui/core";
 import { Divider, Input} from '../components'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react';
+import { getTicket } from '../services/ticket';
+import { pid } from '../services/pid';
 
 export default function Home() {
+  const [num, setNum] = useState('0');
 
-  const Post = () => {
-    const router = useRouter()
-    const { pid } = router.query
-    const toast = useToast();
-    toast({
-      title: "Account created.",
-      description: "We've created your account for you.",
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-    })
-    return pid
+  const toast = useToast()
+  let protocolo = pid()
+
+  async function callAPI(){
+    
+      console.log(await getTicket())
+      console.log(protocolo)
+      setNum(protocolo)
+      LoadToast()
+    
   }
+
+  function LoadToast(){
+    toast({
+          title: "Account created.",
+          description: "We've created your account for you.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        })
+  }
+
+  useEffect(() => {
+    if(!protocolo){
+      return;
+    }
+    callAPI()
+}, [protocolo]);
 
   return (
     <Grid
@@ -38,7 +55,7 @@ export default function Home() {
         <img width="75%" src="/aslan-logo.svg" alt="Rocketseat" />
 
         <Heading size="2xl" lineHeight="shorter" marginTop={16}>
-          Protocolo: {Post()}
+          Protocolo: {num}
         </Heading>
       </Flex>
 
